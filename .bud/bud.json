@@ -1,0 +1,3 @@
+{
+  "startupCommands": ["npm install --legacy-peer-deps --force; npm run dev -- --port 3523"]
+}

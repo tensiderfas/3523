@@ -19,6 +19,7 @@ const ROUTE_PERMISSION_MAP: Record<string, keyof AdminPermissions> = {
   "/admin/pending-users": "canAccessPendingUsers",
   "/admin/lyrics": "canAccessLyrics",
   "/admin/staff": "canAccessStaff",
+  "/admin/telegram": "canAccessStaff",
   "/admin/dashboard": "canAccessDashboard",
 };
 

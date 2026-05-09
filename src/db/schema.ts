@@ -299,6 +299,14 @@ export const adminPermissions = sqliteTable('admin_permissions', {
   updatedAt: text('updated_at').notNull(),
 });
 
+// Bot settings table — stores global on/off flag and other config
+export const botSettings = sqliteTable('bot_settings', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  key: text('key').notNull().unique(), // e.g. 'telegram_enabled'
+  value: text('value').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
 // Pitching submissions table
 export const pitchings = sqliteTable('pitchings', {
   id: integer('id').primaryKey({ autoIncrement: true }),

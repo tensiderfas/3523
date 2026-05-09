@@ -3,7 +3,7 @@ import { db } from '@/db';
 import { artists } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { verifyCredentials } from '@/lib/auth';
-import { sendTelegramMessage } from '@/lib/telegram';
+import { sendTelegramMessageRaw } from '@/lib/telegram';
 
 // ─── In-memory auth session store ─────────────────────────────────────────────
 // Tracks which step each chat is in during the login flow.
@@ -12,9 +12,10 @@ type AuthState = { step: 'await_email' } | { step: 'await_password'; email: stri
 const pendingAuth = new Map<string, AuthState>();
 
 // ─── Helper ───────────────────────────────────────────────────────────────────
-
+// Bot command responses always go through raw (bypass enabled/disabled flag)
+// so that /start, /logout, etc. always work regardless of admin broadcast setting.
 async function reply(chatId: string, text: string) {
-  return sendTelegramMessage(chatId, text);
+  return sendTelegramMessageRaw(chatId, text);
 }
 
 async function getArtistByChatId(chatId: string) {
@@ -173,6 +174,10 @@ export async function POST(request: NextRequest) {
         pendingAuth.delete(chatId);
         if (err.message === 'BLOCKED') {
           await reply(chatId, '🚫 Ваш аккаунт заблокирован. Обратитесь в поддержку.');
+        } else if (err.message === 'PENDING_APPROVAL') {
+          await reply(chatId, '⏳ Ваш аккаунт ожидает одобрения администратора. Попробуйте позже.');
+        } else if (err.message === 'FROZEN') {
+          await reply(chatId, '🔒 Ваш аккаунт временно заморожен. Обратитесь в поддержку.');
         } else {
           await reply(chatId, '❌ Ошибка авторизации. Попробуйте позже или напишите /start.');
         }

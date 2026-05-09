@@ -20,6 +20,7 @@ import {
   UserPlus,
   Wallet,
   TrendingUp,
+  BotMessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -50,6 +51,7 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
     { icon: UserPlus, label: "Заявки", href: "/admin/pending-users", permKey: "canAccessPendingUsers" as const },
     { icon: Sparkles, label: "Заявки на тексты", href: "/admin/lyrics", permKey: "canAccessLyrics" as const },
     { icon: TrendingUp, label: "Питчинги", href: "/admin/pitchings", permKey: "canAccessReleases" as const },
+    { icon: BotMessageSquare, label: "Telegram", href: "/admin/telegram", permKey: "canAccessStaff" as const },
     { icon: UserCog, label: "Администрация", href: "/admin/staff", permKey: "canAccessStaff" as const },
   ];
 
