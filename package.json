@@ -6,7 +6,10 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "db:generate": "drizzle-kit generate",
+        "db:migrate": "drizzle-kit migrate",
+        "db:push": "drizzle-kit push"
     },
     "dependencies": {
         "@babel/parser": "^7.28.5",
@@ -14,7 +17,6 @@
         "@heroicons/react": "^2.2.0",
         "@hookform/resolvers": "^5.1.1",
         "@libsql/client": "^0.15.15",
-        "@next/swc-win32-x64-msvc": "^16.1.1",
         "@number-flow/react": "^0.5.10",
         "@radix-ui/react-accordion": "^1.2.11",
         "@radix-ui/react-alert-dialog": "^1.1.14",
